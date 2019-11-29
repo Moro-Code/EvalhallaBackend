@@ -1,0 +1,5 @@
+DATABASE_NAME = "evalhalla"
+DATABASE_HOST = "localhost"
+DATABASE_PORT = 5432
+DATABASE_USER = "root"
+DATABASE_PASSWORD = "password"

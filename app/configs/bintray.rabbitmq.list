@@ -1,0 +1,4 @@
+# This repository provides RabbitMQ packages
+# See below for supported distribution and component values
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
+deb https://dl.bintray.com/rabbitmq/debian bionic main 
