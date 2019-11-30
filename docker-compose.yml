@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  evalhalla-backend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      args:
+        APP_ENV: development
