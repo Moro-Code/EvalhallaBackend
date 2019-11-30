@@ -131,7 +131,7 @@ def create_app(env="production") -> Flask:
         f"{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
     )
 
-    check_if_db_exists_and_create(app)
+    # check_if_db_exists_and_create(app)
     
     return app 
 
