@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/onasr/Desktop/github/EvalhallaBackend/venv/bin/python3.7",
+    "python.pythonPath": "venv/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.mypyEnabled": true,
     "python.linting.enabled": true

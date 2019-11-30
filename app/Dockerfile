@@ -2,8 +2,8 @@ FROM  ubuntu:18.04
 
 ARG APP_ENV
 
-ENV APP_ENV = ${APP_ENV}
-ENV FLASK_ENV = ${APP_ENV}}
+ENV APP_ENV ${APP_ENV}
+ENV FLASK_ENV ${APP_ENV}}
 
 RUN who
 
@@ -26,8 +26,12 @@ cp configs/bintray.rabbitmq.list /etc/apt/sources.list.d/bintray.rabbitmq.list &
 apt-get update -y && \
 apt-get install rabbitmq-server -y --fix-missing
 
-RUN if [ "$APP_ENV" = "development" ]; then rabbitmq-plugins enable rabbitmq_management ; fi
 
+# set the permission of the executable which will start the server
+RUN chmod 777 configs/scripts/start.sh
 
+# install the depe
+
+ENTRYPOINT [ "/bin/bash", "configs/scripts/start.sh" ]
 
 EXPOSE 15672
