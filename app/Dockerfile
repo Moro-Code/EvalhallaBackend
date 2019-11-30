@@ -27,17 +27,25 @@ cp configs/bintray.rabbitmq.list /etc/apt/sources.list.d/bintray.rabbitmq.list &
 apt-get update -y && \
 apt-get install rabbitmq-server -y --fix-missing
 
+# install nginx web server
+RUN apt update && \
+apt install -y nginx && \
+rm /etc/nginx/sites-available/default && \
+rm /etc/nginx/sites-enabled/default
+
+SHELL ["/bin/bash", "-c"]
+RUN cp configs/nginx/default /etc/nginx/sites-enabled/default && nginx -t
 
 # set the permission of the executable which will start the server
 RUN chmod 777 configs/scripts/start.sh
 
 # create virtual environment and install depedencies
-SHELL ["/bin/bash", "-c"]
 RUN pip3 install virtualenv --upgrade && \
 virtualenv -p /usr/bin/python3.7 venv && \
 source venv/bin/activate && \
-pip install -r requirements.txt
+pip install -r requirements.txt && \
+pip install gunicorn
 
 ENTRYPOINT [ "/bin/bash", "configs/scripts/start.sh" ]
 
-EXPOSE 15672
+EXPOSE 15672 80
