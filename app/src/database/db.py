@@ -2,6 +2,8 @@ from flask import Flask
 import psycopg2
 from psycopg2 import sql
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from sqlalchemy import create_engine
+from .models import Base
 
 def check_if_db_exists_and_create(app: Flask) -> None:
     """
@@ -12,6 +14,7 @@ def check_if_db_exists_and_create(app: Flask) -> None:
     db_user = app.config["DATABASE_USER"]
     db_password = app.config["DATABASE_PASSWORD"]
     db_name = app.config["DATABASE_NAME"]
+    db_uri = app.config["DATABASE_URI"]
 
     # connect to the database server
     connection = psycopg2.connect(
@@ -42,6 +45,15 @@ def check_if_db_exists_and_create(app: Flask) -> None:
     # close the cursor and connection
     cursor.close()
     connection.close()
+
+    # create database engine 
+    if not exists:
+        engine = create_engine(db_uri, echo = True)
+        Base.metadata.create_all(engine)
+        engine.dispose()
+
+
+
 
 
 
