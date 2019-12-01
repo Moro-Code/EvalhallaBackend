@@ -1,0 +1,38 @@
+version: 0.2
+
+#env:
+  #variables:
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  #git-credential-helper: yes
+
+phases:
+  install:
+    #If you use the Ubuntu standard image 2.0 or later, you must specify runtime-versions.
+    #If you specify runtime-versions and use an image other than Ubuntu standard image 2.0, the build fails.
+    runtime-versions:
+      docker: 18
+      # name: version
+    #commands:
+      #- yarn install
+      # - command
+  #pre_build:
+    #commands:
+      # - command
+      # - command
+  #build:
+    #commands:
+      # - command
+  #post_build:
+    #commands:
+      # - command
+      # - command
+artifacts:
+  files:
+    - '**/*'
+  base-directory: app
+    # - location
+  #name: $(date +%Y-%m-%d)
