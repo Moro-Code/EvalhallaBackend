@@ -4,9 +4,9 @@ from sqlalchemy.orm import relationship
 from .utils import utcnow
 
 class SurveyModel(Base):
-    __tablename_ = "surveys"
+    __tablename__ = "surveys"
     id = Column("id", Integer, primary_key = True)
-    surveyName = Column("survey_name", String(length=20), nullable=False)
+    surveyName = Column("survey_name", String(length=20), nullable=False, unique= True)
     createdOn = Column("created_on", DateTime, server_default=utcnow())
     # get evalese children by order of when they were created
     previousEvalese = relationship(
