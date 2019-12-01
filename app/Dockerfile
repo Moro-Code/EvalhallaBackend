@@ -48,4 +48,4 @@ pip install gunicorn
 
 ENTRYPOINT [ "/bin/bash", "configs/scripts/start.sh" ]
 
-EXPOSE 15672 80
+EXPOSE 80
