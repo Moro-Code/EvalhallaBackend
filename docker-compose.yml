@@ -2,6 +2,8 @@ version: "3"
 
 services:
   evalhalla-backend:
+    depends_on:
+      - postgres
     build:
       context: ./app
       dockerfile: Dockerfile
@@ -10,3 +12,14 @@ services:
     ports:
       - 5000:80
       - 5050:15672
+  postgres:
+    image: "postgres:11.6"
+    environment:
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=letmein
+    volumes:
+      - ./postgres:/var/lib/postgresqldata
+    ports:
+      - 5432:5432
+
+

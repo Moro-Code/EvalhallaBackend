@@ -1,6 +1,7 @@
 from flask import Flask
 import psycopg2
-
+from psycopg2 import sql
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 def check_if_db_exists_and_create(app: Flask) -> None:
     """
@@ -18,6 +19,9 @@ def check_if_db_exists_and_create(app: Flask) -> None:
         password = db_password, port = db_port
     )
 
+    # set isolation level so that no transaction is started 
+    connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+
     # create a cursor
     cursor = connection.cursor()
 
@@ -31,8 +35,9 @@ def check_if_db_exists_and_create(app: Flask) -> None:
 
     # create database if it does not exist
     if not exists:
-        cursor.execute(f"CREATE DATABASE '{db_name}';")
-        cursor.commit()
+        cursor.execute(
+            f"CREATE DATABASE {db_name};"
+        )
     
     # close the cursor and connection
     cursor.close()

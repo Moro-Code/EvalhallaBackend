@@ -1,5 +1,5 @@
 DATABASE_NAME = "evalhalla"
-DATABASE_HOST = "localhost"
+DATABASE_HOST = "postgres"
 DATABASE_PORT = 5432
-DATABASE_USER = "root"
-DATABASE_PASSWORD = "password"
+DATABASE_USER = "postgresadmin"
+DATABASE_PASSWORD = "letmein"
