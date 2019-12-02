@@ -12,6 +12,10 @@ services:
     ports:
       - 5000:80
       - 5050:15672
+    environment:
+      - EVALHALLA_AMQP_USER=dev_inst
+      - EVALHALLA_AMQP_PASSWORD=dev_inst
+      - EVALHALLA_AMQP_VHOST=evalhalla
   postgres:
     image: "postgres:11.6"
     environment:

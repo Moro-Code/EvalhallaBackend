@@ -1,9 +1,17 @@
 FROM  ubuntu:18.04
 
 ARG APP_ENV
+ARG AMQP_USER 
+ARG AMQP_PASSWORD 
+ARG AMQP_VHOST 
+
+ 
 
 ENV APP_ENV ${APP_ENV}
-ENV FLASK_ENV ${APP_ENV}}
+ENV FLASK_ENV ${APP_ENV}
+ENV EVALHALLA_AMQP_USER ${AMQP_USER}
+ENV EVALHALLA_AMQP_PASSWORD ${AMQP_PASSWORD}
+ENV EVALHALLA_AMQP_VHOST ${AMQP_VHOST}
 
 RUN who
 
@@ -45,6 +53,11 @@ virtualenv -p /usr/bin/python3.7 venv && \
 source venv/bin/activate && \
 pip install -r requirements.txt && \
 pip install gunicorn
+
+# install celery configuration into init.d
+RUN cp configs/etc/default/celeryd /etc/default/celeryd && \
+cp configs/etc/init.d/celeryd.sh /etc/init.d/celeryd && \
+chmod 777 /etc/init.d/celeryd
 
 ENTRYPOINT [ "/bin/bash", "configs/scripts/start.sh" ]
 
