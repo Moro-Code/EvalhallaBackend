@@ -5,7 +5,7 @@ import logging
 import sys
 from .database import check_if_db_exists_and_create
 from .utils.errors.messages import CONFIG_IS_WRONG_TYPE, CONFIG_VAR_DOES_NOT_EXIST
-
+from .api import register_routes
 
 def create_app(env="production") -> Flask:
 
@@ -281,9 +281,14 @@ def create_app(env="production") -> Flask:
     AMQP_VHOST = app.config.get("AMQP_VHOST")
     app.config["BROKER_URI"] = f"amqp://{AMQP_USER}:{AMQP_PASSWORD}@{AMQP_HOST}:{AMQP_PORT}/{AMQP_VHOST}"
 
-    check_if_db_exists_and_create(app)
     
-    return app 
+    # create application db if it doesn't exist
+    check_if_db_exists_and_create(app)
+
+    # register the api routes
+    register_routes(app)
+    
+    return app
 
 
 

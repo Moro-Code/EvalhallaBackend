@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_restful import Api
 from src.utils.errors.messages import ARGUMENT_MUST_BE_PROVIDED, ARGUMENT_IS_INCORRECT_TYPE
 
-def blueprint_wrapper(api_routes_creator_func):
+def api_blueprint_wrapper(api_routes_creator_func):
     """
     Blueprint wrapper for api routes to avoid having to duplicate boilerplate 
     """
@@ -29,8 +29,8 @@ def blueprint_wrapper(api_routes_creator_func):
             # create a blueprint with the name of the version 
             bp = Blueprint(version, import_name = __name__)
             api = Api(bp, prefix="/" + version)
-
-        api_routes_creator_func(Api)
+        
+        api_routes_creator_func(api)
         app.register_blueprint(bp)
     
     return bp_wrapper_inner
