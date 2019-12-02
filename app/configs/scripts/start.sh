@@ -7,16 +7,18 @@ if [ "$APP_ENV" == "development" ]
 then
    echo "Enabling management console for development environment"
    rabbitmq-plugins enable rabbitmq_management
-   echo "Starting rabbitmq server process "
-   service rabbitmq-server start
-   echo "Adding admin user"
-   rabbitmqctl add_user dev_inst dev_inst
-   rabbitmqctl set_user_tags dev_inst administrator
-   rabbitmqctl set_permissions -p / dev_inst ".*" ".*" ".*"
-else
-   echo "Starting rabbitmq server process "
-   service rabbitmq-server start
 fi
+
+echo "Starting rabbitmq server process "
+service rabbitmq-server start
+
+echo "Adding admin user"
+rabbitmqctl add_user ${EVALHALLA_AMQP_USER} ${EVALHALLA_AMQP_PASSWORD}
+rabbitmqctl set_user_tags ${EVALHALLA_AMQP_USER} administrator
+rabbitmqctl set_permissions -p / ${EVALHALLA_AMQP_USER} ".*" ".*" ".*"
+rabbitmqctl add_vhost ${EVALHALLA_AMQP_VHOST}
+rabbitmqctl set_permissions -p ${EVALHALLA_AMQP_VHOST} ${EVALHALLA_AMQP_USER} ".*" ".*" ".*"
+
 
 
 NUM_CORES=$( getconf _NPROCESSORS_ONLN )
@@ -25,6 +27,8 @@ echo "$NUM_CORES cpu cores detected on system"
 echo "Starting nginx service"
 service nginx start
 
+echo "Starting celery workers"
+service celeryd start
 
 source venv/bin/activate
 if [ "$APP_ENV" == "development" ]
