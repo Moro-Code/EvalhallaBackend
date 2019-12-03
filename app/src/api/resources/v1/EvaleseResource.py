@@ -2,10 +2,10 @@
 Resource used to get and create evalese
 """
 
-
+from flask import request 
 from flask_restful import Resource, reqparse
-from src.utils.errors.messages import API_PARAMETER_MUST_BE_PROVIDED
-from src.api.utils.errors.error_types import API_PARAMETER_MISSING
+from src.utils.errors.messages import API_PARAMETER_MUST_BE_PROVIDED, PAYLOAD_MUST_BE_SENT
+from src.api.utils.errors.error_types import API_PARAMETER_MISSING, PAYLOAD_MISSING_OR_EMPTY
 
 
 arg_parser = reqparse.RequestParser()
@@ -56,7 +56,27 @@ class EvaleseResource(Resource):
             # implement getting the most recent evalese
             # dummy return for now 
             return {}, 200
+    
+    def post(self, title = None):
+
+        payload = request.get_json()
+
+        if payload is None or not bool(payload):
+            return {
+                "error": PAYLOAD_MISSING_OR_EMPTY,
+                "message": PAYLOAD_MUST_BE_SENT.format(
+                    resource = "Evalese"
+                )
+            }, 400
         
+        # if title is provided in route it only makes sense to be the title in the data
+        if title is not None:
+            payload["title"] = title
+
+        #implement creating data 
+        return {}, 200 
+
+
 
 
 

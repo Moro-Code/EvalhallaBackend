@@ -1,9 +1,45 @@
-from flask import Flask
+from flask import Flask, current_app, g
 import psycopg2
 from psycopg2 import sql
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 from .models import Base
+
+
+def get_db(autoflush=True, autocommit = False):
+    reinitialise = False
+    db_uri = current_app.config["DATABASE_URI"]
+    if "db_engine" not in g:
+        g.db_engine = create_engine(db_uri)
+        reinitialise = True 
+    if "db_factory" not in g or reinitialise:
+        g.db_factory = scoped_session(
+            sessionmaker(
+                bind = g.db_engine, 
+                autoflush=autoflush, 
+                autocommit=autocommit
+            )
+        )
+        reinitialise = True
+    if "db" not in g or reinitialise:
+        g.db = g.db_factory()
+
+def close_db(e = None):
+    db = g.pop("db", None)
+    db_factory = g.pop("db_factoy", None)
+    db_engine = g.pop("db_engine", None )
+
+    if db is not None:
+        db.close()
+    if db_factory is not None:
+        db_factory.remove()
+    if db_engine is not None:
+        db_engine.dispose()
+    
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    check_if_db_exists_and_create(app)
 
 def check_if_db_exists_and_create(app: Flask) -> None:
     """
@@ -48,6 +84,7 @@ def check_if_db_exists_and_create(app: Flask) -> None:
 
     # create database engine 
     if not exists:
+        # if db does not exist create it 
         engine = create_engine(db_uri, echo = True)
         Base.metadata.create_all(engine)
         engine.dispose()

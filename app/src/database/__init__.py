@@ -1,1 +1,1 @@
-from .db import check_if_db_exists_and_create
+from .db import init_app

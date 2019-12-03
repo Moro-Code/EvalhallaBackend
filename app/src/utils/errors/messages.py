@@ -22,3 +22,12 @@ ARGUMENT_IS_INCORRECT_TYPE = (
 API_PARAMETER_MUST_BE_PROVIDED = (
     "In order to access the resource {resource}, the parameter {parameter} must be provided. "
 )
+
+PAYLOAD_MUST_BE_SENT = (
+    "The following resource {resource} requires a payload in body of the request"
+)
+
+MISSING_PARAMETER_TO_READ_DATA = (
+    "The following parameter {parameter} is required to retrieve {table} rows but " +
+    "was not provided in the instatiation of the crud class or function. "
+)
