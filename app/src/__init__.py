@@ -36,7 +36,10 @@ def create_app(env="production") -> Flask:
             CORS(app, origins = allowed_origins)
         else:
             CORS(app)
-            
+        
+        @app.route("/")
+        def good_api(): # pylint: disable=W0612
+            return "It Works!"
     else:
         from src.config import development
         app.config.from_object(development)
