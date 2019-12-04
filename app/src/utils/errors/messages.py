@@ -27,7 +27,15 @@ PAYLOAD_MUST_BE_SENT = (
     "The following resource {resource} requires a payload in body of the request"
 )
 
-MISSING_PARAMETER_TO_READ_DATA = (
-    "The following parameter {parameter} is required to retrieve {table} rows but " +
-    "was not provided in the instatiation of the crud class or function. "
+MISSING_PARAMETER_FOR_DATA_OPERATION = (
+    "The following  parameter(s) are required for a {operation} " +
+    "on the table {table}: {parameters} . "
+)
+
+NO_SURVEY_FOUND = (
+    "No survey with the following title '{title}' could be found. "
+)
+
+DATABASE_COMMIT_FAILED = (
+    "A database transaction failed with the following error {e}. "
 )

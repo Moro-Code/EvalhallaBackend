@@ -11,7 +11,11 @@ def get_db(autoflush=True, autocommit = False):
     reinitialise = False
     db_uri = current_app.config["DATABASE_URI"]
     if "db_engine" not in g:
-        g.db_engine = create_engine(db_uri)
+        env = current_app.config.get("ENV")
+        if env == "development":
+            g.db_engine = create_engine(db_uri, echo = True)
+        else:
+            g.db_engine = create_engine(db_uri)
         reinitialise = True 
     if "db_factory" not in g or reinitialise:
         g.db_factory = scoped_session(
@@ -24,6 +28,7 @@ def get_db(autoflush=True, autocommit = False):
         reinitialise = True
     if "db" not in g or reinitialise:
         g.db = g.db_factory()
+    return g.db
 
 def close_db(e = None):
     db = g.pop("db", None)
@@ -77,6 +82,9 @@ def check_if_db_exists_and_create(app: Flask) -> None:
         cursor.execute(
             f"CREATE DATABASE {db_name};"
         )
+        cursor.execute(
+            'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";' 
+        )
     
     # close the cursor and connection
     cursor.close()
@@ -86,6 +94,7 @@ def check_if_db_exists_and_create(app: Flask) -> None:
     if not exists:
         # if db does not exist create it 
         engine = create_engine(db_uri, echo = True)
+        engine.execute('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
         Base.metadata.create_all(engine)
         engine.dispose()
 
