@@ -27,6 +27,24 @@ echo "$NUM_CORES cpu cores detected on system"
 echo "Starting nginx service"
 service nginx start
 
+export FLASK_ENV=${APP_ENV}
+export EVALHALLA_DATABASE_HOST=${EVALHALLA_DATABASE_HOST}
+export EVALHALLA_DATABASE_USER=${EVALHALLA_DATABASE_USER}
+export EVALHALLA_DATABASE_NAME=${EVALHALLA_DATABASE_NAME}
+export EVALHALLA_DATABASE_PASSWORD=${EVALHALLA_DATABASE_PASSWORD}
+export EVALHALLA_AMQP_USER=${EVALHALLA_AMQP_USER}
+export EVALHALLA_AMQP_VHOST=${EVALHALLA_AMQP_VHOST}
+export EVALHALLA_AMQP_PASSWORD=${EVALHALLA_AMQP_PASSWORD}
+
+echo "export APP_ENV=${APP_ENV}"
+echo "export EVALHALLA_DATABASE_HOST=${EVALHALLA_DATABASE_HOST}" >> /etc/default/celeryd
+echo "export EVALHALLA_DATABASE_USER=${EVALHALLA_DATABASE_USER}" >> /etc/default/celeryd
+echo "export EVALHALLA_DATABASE_NAME=${EVALHALLA_DATABASE_NAME}" >> /etc/default/celeryd
+echo "export EVALHALLA_DATABASE_PASSWORD=${EVALHALLA_DATABASE_PASSWORD}" >> /etc/default/celeryd
+echo "export EVALHALLA_AMQP_USER=${EVALHALLA_AMQP_USER}" >> /etc/default/celeryd
+echo "export EVALHALLA_AMQP_PASSWORD=${EVALHALLA_AMQP_PASSWORD}" >> /etc/default/celeryd
+echo "export EVALHALLA_AMQP_VHOST=${EVALHALLA_AMQP_VHOST}" >> /etc/default/celeryd
+
 echo "Starting celery workers"
 service celeryd start
 
@@ -37,11 +55,6 @@ then
    flask run -p 8000
 else
    echo "Starting application with $NUM_CORES workers"
-   export FLASK_ENV=${APP_ENV}
-   export EVALHALLA_DATABASE_HOST=${EVALHALLA_DATABASE_HOST}
-   export EVALHALLA_DATABASE_USER=${EVALHALLA_DATABASE_USER}
-   export EVALHALLA_DATABASE_NAME=${EVALHALLA_DATABASE_NAME}
-   export EVALHALLA_DATABASE_PASSWORD=${EVALHALLA_DATABASE_PASSWORD}
    gunicorn -w $NUM_CORES app:app
 fi
 
