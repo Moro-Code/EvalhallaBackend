@@ -5,6 +5,7 @@ billiard==3.6.1.0
 celery==4.3.0
 Click==7.0
 Flask==1.1.1
+Flask-Cors==3.0.8
 Flask-RESTful==0.3.7
 importlib-metadata==0.23
 isort==4.3.21

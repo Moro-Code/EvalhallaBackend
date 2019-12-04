@@ -33,9 +33,13 @@ MISSING_PARAMETER_FOR_DATA_OPERATION = (
 )
 
 NO_SURVEY_FOUND = (
-    "No survey with the following title '{title}' could be found. "
+    "No survey with the following title '{surveyName}' could be found. "
 )
 
 DATABASE_COMMIT_FAILED = (
     "A database transaction failed with the following error {e}. "
+)
+
+NO_EVALESE_FOUND = (
+    "No evalese could be found for the following survey '{surveyName}'"
 )

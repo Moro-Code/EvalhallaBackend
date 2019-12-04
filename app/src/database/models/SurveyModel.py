@@ -11,10 +11,11 @@ class SurveyModel(Base):
     uuid = Column("uuid", UUID, unique = True, server_default=text("uuid_generate_v4()"))
     createdOn = Column("created_on", DateTime, server_default=utcnow())
     # get evalese children by order of when they were created
-    previousEvalese = relationship(
+    evalese = relationship(
         "EvaleseModel", 
         order_by="EvaleseModel.createdOn.desc()",
         cascade="all, delete-orphan",
-        passive_deletes=True
+        passive_deletes=True,
+        lazy="dynamic"
     )
 

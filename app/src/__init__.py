@@ -1,5 +1,6 @@
 
 from flask import Flask
+from flask_cors import CORS
 import os
 import logging
 import sys
@@ -11,6 +12,7 @@ def create_app(env="production") -> Flask:
 
     app = Flask(__name__)
 
+
     # importing the default configuration
     from src.config import default
     app.config.from_object(default)
@@ -19,6 +21,22 @@ def create_app(env="production") -> Flask:
     if env == "production":
         from src.config import production
         app.config.from_object(production)
+
+        # allow only certain origins or all
+        allowed_origins = app.config.get("ALLOWED_ORIGINS")
+        if allowed_origins is not None:
+            if not isinstance(allowed_origins, list):
+                raise TypeError(
+                    CONFIG_IS_WRONG_TYPE.format(
+                        config_var = "ALLOWED_ORIGINS",
+                        config_var_type = "list",
+                        config_incorrect_type = type(allowed_origins).__name__
+                    )
+                )
+            CORS(app, origins = allowed_origins)
+        else:
+            CORS(app)
+            
     else:
         from src.config import development
         app.config.from_object(development)

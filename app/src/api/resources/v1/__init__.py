@@ -7,6 +7,6 @@ def routes_creator(api):
     api.add_resource(
         EvaleseResource,
         "/evalese",
-        "/evalese/<string:title>",
+        "/evalese/<string:surveyName>",
         endpoint = "evalese"
     )

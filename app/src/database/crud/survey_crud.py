@@ -19,7 +19,9 @@ class SurveyCRUD:
         self.session = get_db()
 
     @requires_params(READ, SurveyModel.__tablename__, "surveyName")
-    def read_survey(session, **kwargs):
+    def read_survey(self,session, **kwargs):
+        # pylint: disable=no-self-argument
+        # pylint: disable=no-member
         surveyName = kwargs.get("surveyName")
         survey = session.query(SurveyModel).filter_by(
             surveyName = surveyName
@@ -34,7 +36,9 @@ class SurveyCRUD:
         return survey
         
     @requires_params(CREATE, SurveyModel.__tablename__, "surveyName")
-    def create_survey(session, **kwargs):
+    def create_survey(self, session, **kwargs):
+        # pylint: disable=no-self-argument
+        # pylint: disable=no-member
         surveyName = kwargs.get("surveyName")
         new_survey = SurveyModel(
             surveyName=surveyName
@@ -52,7 +56,9 @@ class SurveyCRUD:
         return new_survey
     
     @requires_params(DELETE, SurveyModel.__tablename__, "surveyName")
-    def delete_survey(session, **kwargs):
+    def delete_survey(self, session, **kwargs):
+        # pylint: disable=no-self-argument
+        # pylint: disable=no-member
         surveyName = kwargs.get("surveyName")
         session.query(SurveyModel).filter_by(surveyName=surveyName).delete()
         try:
