@@ -1,0 +1,24 @@
+# celery chdir 
+CELERYD_CHDIR="/home/root/"
+
+# Name of the nodes to start
+CELERYD_NODES="w1 w2 w3"
+
+# The path of the celery command in the container
+CELERY_BIN="/home/root/venv/bin/python -m celery"
+
+# App instance
+CELERY_APP="app:celery"
+CELERYD_CREATE_DIRS=1
+CELERYD_LOG_LEVEL="INFO"
+
+CELERYD_USER="root"
+CELERYD_GROUP="root"
+# force the workers to run as root 
+C_FORCE_ROOT=1
+
+
+
+
+
+

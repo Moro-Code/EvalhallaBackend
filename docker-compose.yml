@@ -2,11 +2,33 @@ version: "3"
 
 services:
   evalhalla-backend:
+    depends_on:
+      - postgres
     build:
       context: ./app
       dockerfile: Dockerfile
       args:
-        APP_ENV: development
+        APP_ENV: production
     ports:
       - 5000:80
       - 5050:15672
+    environment:
+      - EVALHALLA_AMQP_USER=dev_inst
+      - EVALHALLA_AMQP_PASSWORD=dev_inst
+      - EVALHALLA_AMQP_VHOST=evalhalla
+      - EVALHALLA_DATABASE_USER=postgresadmin
+      - EVALHALLA_DATABASE_PASSWORD=letmein
+      - EVALHALLA_DATABASE_HOST=postgres
+      - EVALHALLA_DATABASE_PORT=5432
+      - EVALHALLA_DATABASE_NAME=evalhalla
+  postgres:
+    image: "postgres:11.6"
+    environment:
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=letmein
+    volumes:
+      - ./postgres:/var/lib/postgresqldata
+    ports:
+      - 5432:5432
+
+

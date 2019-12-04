@@ -1,6 +1,6 @@
 {
     "python.pythonPath": "venv/bin/python",
-    "python.linting.pylintEnabled": false,
-    "python.linting.mypyEnabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.mypyEnabled": false,
     "python.linting.enabled": true
 }
