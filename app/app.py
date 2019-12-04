@@ -4,12 +4,14 @@ from celery.exceptions import TimeoutError
 import os 
 import logging
 
-
+APP_ENV = os.environ.get("APP_ENV")
 FLASK_ENV = os.environ.get("FLASK_ENV")
 
 if FLASK_ENV is None:
-    FLASK_ENV="development"
-    os.environ["FLASK_ENV"] = "development"
+    if APP_ENV is None:
+        FLASK_ENV = "production"
+    else:
+        FLASK_ENV = "development"
 
 
 application = app = create_app(FLASK_ENV)
