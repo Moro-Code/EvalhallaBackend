@@ -19,7 +19,6 @@ services:
       - EVALHALLA_DATABASE_USER=postgresadmin
       - EVALHALLA_DATABASE_PASSWORD=letmein
       - EVALHALLA_DATABASE_HOST=postgres
-      - EVALHALLA_DATABASE_PORT=5432
       - EVALHALLA_DATABASE_NAME=evalhalla
   postgres:
     image: "postgres:11.6"
