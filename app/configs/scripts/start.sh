@@ -37,6 +37,7 @@ then
    flask run -p 8000
 else
    echo "Starting application with $NUM_CORES workers"
+   export FLASK_ENV=${APP_ENV}
    gunicorn -w $NUM_CORES app:app
 fi
 
