@@ -60,7 +60,7 @@ class EvaleseResource(Resource):
             # dummy return for now
 
             try:
-                evalese = EvaleseCRUD().read_most_recent_evalese_by_surveyName(surveyName = get_arg_surveyName) # pylint: disable=no-value-for-parameter
+                evalese = EvaleseCRUD().read_most_recent_evalese_by_surveyName(surveyName = surveyName) # pylint: disable=no-value-for-parameter
                 return {
                     "surveyName": surveyName,
                     "evalese": evalese.evalese,
