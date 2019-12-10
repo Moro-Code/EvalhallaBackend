@@ -8,6 +8,7 @@ ARG EVALHALLA_DATABASE_HOST
 ARG EVALHALLA_DATABASE_USER
 ARG EVALHALLA_DATABASE_PASSWORD
 ARG EVALHALLA_DATABASE_NAME
+ARG PLATFORM
  
 
 
@@ -20,6 +21,7 @@ ENV EVALHALLA_DATABASE_HOST ${EVALHALLA_DATABASE_HOST}
 ENV EVALHALLA_DATABASE_USER ${EVALHALLA_DATABASE_USER}
 ENV EVALHALLA_DATABASE_NAME ${EVALHALLA_DATABASE_NAME}}
 ENV EVALHALLA_DATABASE_PASSWORD ${EVALHALLA_DATABASE_PASSWORD}
+ENV EVALHALLA_PLATFORM ${PLATFORM}
 
 
 RUN who
@@ -44,19 +46,28 @@ rm /etc/nginx/sites-enabled/default
 
 # set working directory and copy files in 
 WORKDIR /home/root
-COPY  . ./
+COPY  ./configs ./configs
+
+SHELL ["/bin/bash", "-c"]
+
+RUN apt update && apt-get install -y dos2unix
+RUN dos2unix configs/scripts/start.sh
+RUN dos2unix configs/etc/default/celeryd 
+RUN dos2unix configs/etc/init.d/celeryd.sh 
+RUN dos2unix configs/nginx/default 
+RUN dos2unix configs/bintray.rabbitmq.list
 
 # moving deb configs and install rabbitmq
 RUN cp configs/bintray.rabbitmq.list /etc/apt/sources.list.d/bintray.rabbitmq.list && \
 apt-get update -y && \
 apt-get install rabbitmq-server -y --fix-missing
 
-SHELL ["/bin/bash", "-c"]
 RUN cp configs/nginx/default /etc/nginx/sites-enabled/default && nginx -t
 
 # set the permission of the executable which will start the server
 RUN chmod 777 configs/scripts/start.sh
 
+COPY ./requirements.txt ./requirements.txt
 # create virtual environment and install depedencies
 RUN pip3 install virtualenv --upgrade && \
 virtualenv -p /usr/bin/python3.7 venv && \
@@ -64,10 +75,15 @@ source venv/bin/activate && \
 pip install -r requirements.txt && \
 pip install gunicorn
 
+
+
 # install celery configuration into init.d
 RUN cp configs/etc/default/celeryd /etc/default/celeryd && \
 cp configs/etc/init.d/celeryd.sh /etc/init.d/celeryd && \
 chmod 777 /etc/init.d/celeryd
+
+COPY ./src ./src
+COPY ./app.py ./app.py
 
 ENTRYPOINT [ "/bin/bash", "configs/scripts/start.sh" ]
 
