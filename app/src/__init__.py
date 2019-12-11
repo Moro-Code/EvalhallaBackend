@@ -43,7 +43,8 @@ def create_app(env="production") -> Flask:
     else:
         from src.config import development
         app.config.from_object(development)
-
+        CORS(app)
+        
         @app.route("/testing")
         def testing(): # pylint: disable=W0612
             return "It Works"
