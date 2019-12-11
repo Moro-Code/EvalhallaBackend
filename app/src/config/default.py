@@ -3,7 +3,7 @@ RESTFUL_JSON = {
 }
 
 
-APP_NAME="EVALHALLA"
+APPLICATION_NAME="EVALHALLA"
 
 APPLICATION_VARIABLES = {
     "DATABASE_NAME": {
@@ -35,7 +35,8 @@ APPLICATION_VARIABLES = {
     "DATABASE_PORT": {
         "required": True,
         "default": 5432,
-        "type": int
+        "type": int,
+        "accepted_casts_to_type": str
     },
     "AMQP_HOST": {
         "required": True,
@@ -63,12 +64,10 @@ APPLICATION_VARIABLES = {
     "AMQP_PORT": {
         "required": True,
         "default": 5672,
-        "type": int
+        "type": int,
+        "accepted_casts_to_type": str
     },
     "ALLOWED_ORIGINS": {
-        "env": {
-            "development": False
-        },
         "config_opts": {
             "environment_variable": False
         },
