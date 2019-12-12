@@ -1,1 +1,1 @@
-ALLOWED_ORIGINS = "*.evalhalla.ca"
+ALLOWED_ORIGINS = ["*.evalhalla.ca"]

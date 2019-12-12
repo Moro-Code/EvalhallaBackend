@@ -1,10 +1,4 @@
-RESTFUL_JSON = {
-    "ensure_ascii": False
-}
-
-
 APPLICATION_NAME="EVALHALLA"
-
 APPLICATION_VARIABLES = {
     "DATABASE_NAME": {
         "required": True,
@@ -40,7 +34,8 @@ APPLICATION_VARIABLES = {
     },
     "AMQP_HOST": {
         "required": True,
-        "default": "localhost"
+        "default": "localhost",
+        "type": str
     },
     "AMQP_VHOST": {
         "required": True,
@@ -73,6 +68,16 @@ APPLICATION_VARIABLES = {
         },
         "required": False,
         "default": "*",
-        "type": [str, list]
+        "type": [str,list]
+    },
+    "RESTFUL_JSON": {
+        "config_opts": {
+            "environment_variable": False
+        },
+        "required": False,
+        "default": {
+            "ensure_ascii": False
+        },
+        "type": dict
     }
 }
