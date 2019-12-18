@@ -11,7 +11,7 @@ if FLASK_ENV is None:
     if APP_ENV is None:
         FLASK_ENV = "production"
     else:
-        FLASK_ENV = "development"
+        FLASK_ENV = APP_ENV
 
 
 application = app = create_app(FLASK_ENV)

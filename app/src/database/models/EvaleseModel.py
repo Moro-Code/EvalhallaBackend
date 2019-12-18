@@ -17,6 +17,7 @@ class EvaleseModel(Base):
         "SurveyResponseModel",
         cascade="all, delete-orphan",
         passive_deletes=True,
-        order_by= "SurveyResponseModel.createdOn.desc()"
+        order_by= "SurveyResponseModel.createdOn.desc()",
+        lazy="dynamic"
     )
 

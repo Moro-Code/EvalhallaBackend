@@ -14,8 +14,8 @@ def create_app(env="production") -> Flask:
     app = Flask(__name__)
 
     # importing the default configuration
+    print(env)    
     app.config.from_mapping(load_application_variables(env))
-
     # depending on environment load the correct configuration
     if env == "production":
         # allow only certain origins or all

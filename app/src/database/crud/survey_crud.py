@@ -19,7 +19,7 @@ class SurveyCRUD:
         self.session = get_db()
 
     @requires_params(READ, SurveyModel.__tablename__, "surveyName")
-    def read_survey(self,session, **kwargs):
+    def read_survey_by_surveyName(self,session, **kwargs):
         # pylint: disable=no-self-argument
         # pylint: disable=no-member
         surveyName = kwargs.get("surveyName")

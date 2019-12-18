@@ -67,11 +67,16 @@ CONFIG_MODULE_NOT_FOUND  = (
 
 #### API ERRORS ####
 API_PARAMETER_MUST_BE_PROVIDED = (
-    "In order to access the resource {resource}, the parameter {parameter} must be provided. "
+    "In order to access the resource '{resource}', the parameter '{parameter}' must be provided. "
+)
+
+API_CONSTRAINT_VIOLATED = (
+    "The parameter '{parameter}' for the resource '{resource}' has failed " +
+    "the following constraint: {constraint}. "
 )
 
 PAYLOAD_MUST_BE_SENT = (
-    "The following resource {resource} requires a payload in body of the request"
+    "The following resource '{resource}' requires a payload in body of the request"
 )
 
 #### CRUD ERRORS 
@@ -90,5 +95,5 @@ DATABASE_COMMIT_FAILED = (
 )
 
 NO_EVALESE_FOUND = (
-    "No evalese could be found for the following survey '{surveyName}'"
+    "No evalese could be found for the following survey '{surveyName}' "
 )
