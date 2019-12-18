@@ -79,5 +79,10 @@ APPLICATION_VARIABLES = {
             "ensure_ascii": False
         },
         "type": dict
+    },
+    "USE_SENTIMENT": {
+        "required": True,
+        "type": bool,
+        "default": False
     }
 }

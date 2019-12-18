@@ -1,6 +1,6 @@
 from src.database.models.SurveyResponseModel import SurveyResponseModel
 from src.utils.errors.custom_errors import NoResultsFoundInDatabase, DatabaseCommitFailed
-from src.utils.errors.messages import DATABASE_COMMIT_FAILED
+from src.utils.errors.messages import DATABASE_COMMIT_FAILED, NO_SURVEY_RESPONSE_FOUND
 from .utils.decorators import requires_params
 from .utils.operations import READ, UPDATE, DELETE, CREATE
 
@@ -27,6 +27,21 @@ class SurveyResponseCRUD:
         return evalese.responses.filter_by(
             processed = True 
         ).all()
+    @requires_params(READ, SurveyResponseModel.__tablename__, "uuid")
+    def read_response_by_uuid(self, session, **kwargs):
+        uuid = kwargs.get("uuid")
+
+        response = session.query(SurveyResponseModel).filter_by(
+            uuid = uuid
+        ).one_or_none()
+
+        if response is None:
+            raise NoResultsFoundInDatabase(
+                NO_SURVEY_RESPONSE_FOUND.format(
+                    uuid = uuid
+                )
+            )
+        return response
 
     @requires_params(CREATE, SurveyResponseModel.__tablename__, "response")
     def create_response_for_most_recent_evalese(self, session, **kwargs):

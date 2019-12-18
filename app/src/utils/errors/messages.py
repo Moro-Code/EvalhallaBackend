@@ -90,6 +90,10 @@ NO_SURVEY_FOUND = (
     "No survey with the following title '{surveyName}' could be found. "
 )
 
+NO_SURVEY_RESPONSE_FOUND = (
+    "No survey response found with the following `{uuid}` "
+)
+
 DATABASE_COMMIT_FAILED = (
     "A database transaction failed with the following error {e}. "
 )

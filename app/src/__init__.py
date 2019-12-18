@@ -37,6 +37,19 @@ def create_app(env="production") -> Flask:
     app.config["DATABASE_URI"] = generate_database_uri(**app.config)
     app.config["BROKER_URI"] = generate_amqp_uri(**app.config)
 
+    if app.config["USE_SENTIMENT"] is True:
+        g_app_credentials = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+        if g_app_credentials is None:
+            raise ValueError(
+                "The USE_SENTIMENT flag has been specified as True however, the GOOGLE_APPLICATION_CREDENTIALS " + 
+                "was not specified and is required to enable sentiment analysis"
+            ) 
+        if os.path.isfile(g_app_credentials) is False:
+            raise ValueError(
+                "The USE_SENTIMENT flag has been specified as True however, the value of GOOGLE_APPLICATION_CREDENTIALS " +
+                "is not a valid path."
+            )
+        app.config["GOOGLE_APPLICATION_CREDENTIALS"] = g_app_credentials
     
     # initialize database
     initialize_database(app)
