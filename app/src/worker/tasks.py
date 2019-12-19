@@ -3,6 +3,7 @@ from src.utils.errors.custom_errors import NoResultsFoundInDatabase, DatabaseCom
 from src.utils.errors.messages import DATABASE_COMMIT_FAILED
 from google.auth.exceptions import DefaultCredentialsError
 from google.api_core.exceptions import GoogleAPICallError
+from .worker import CelerySingleton
 
 
 celery_app = CelerySingleton().get_celery()
@@ -19,7 +20,7 @@ def add_two_numbers(x, y):
     retry_kwargs = {"max_retries": 5, "countdown": 1},
     name="calculate_sentiment_for_response"
 )
-def calculate_sentiment_for_response(response_uuid):
+def calculate_sentiment_for_response(self, response_uuid):
     from google.cloud import language
     from google.cloud.language import enums 
     from google.cloud.language import types
@@ -43,21 +44,20 @@ def calculate_sentiment_for_response(response_uuid):
                     type = "PLAIN_TEXT"
                 )
 
-                response = client.analyze_sentiment(
+                sentiment_response = client.analyze_sentiment(
                     document = document,
                     encoding_type="UTF8"
                 )
-                sentiment = response.document_sentiment
+                sentiment = sentiment_response.document_sentiment
 
                 response_json[key + "_sentimentScore"] = sentiment.score
                 response_json[key + "_magnitudeScore"] = sentiment.magnitude
-                response_json[key + "_language"] = sentiment.language
-        
-        response.processed = True
-        response.response = response_json
+                response_json[key + "_language"] = sentiment_response.language
 
         session = get_db()
-
+        response.response = response_json
+        response.processed = True
+        
         try:
             session.commit()
         except Exception as e:
@@ -67,8 +67,6 @@ def calculate_sentiment_for_response(response_uuid):
                     e = repr(e)
                 )
             )
-
-
 
 
 

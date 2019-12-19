@@ -19,7 +19,12 @@ rabbitmqctl set_permissions -p / ${EVALHALLA_AMQP_USER} ".*" ".*" ".*"
 rabbitmqctl add_vhost ${EVALHALLA_AMQP_VHOST}
 rabbitmqctl set_permissions -p ${EVALHALLA_AMQP_VHOST} ${EVALHALLA_AMQP_USER} ".*" ".*" ".*"
 
-
+if [ "$EVALHALLA_USE_SENTIMENT" == "True" ]
+then 
+   doc2unix configs/credentials/credentials.json
+   mkdir /etc/credentials
+   mv configs/credentials/credentials.json /etc/credentials
+fi 
 
 NUM_CORES=$( getconf _NPROCESSORS_ONLN )
 echo "$NUM_CORES cpu cores detected on system"

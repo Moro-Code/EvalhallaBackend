@@ -20,6 +20,8 @@ services:
       - EVALHALLA_DATABASE_PASSWORD=letmein
       - EVALHALLA_DATABASE_HOST=postgres
       - EVALHALLA_DATABASE_NAME=evalhalla
+      - EVALHALLA_USE_SENTIMENT=True
+      - GOOGLE_APPLICATION_CREDENTIALS=/etc/credentials/credentials.json
   postgres:
     image: "postgres:11.6"
     environment:

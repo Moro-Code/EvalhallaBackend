@@ -3,6 +3,8 @@ from src.utils.errors.custom_errors import NoResultsFoundInDatabase, DatabaseCom
 from src.utils.errors.messages import DATABASE_COMMIT_FAILED, NO_SURVEY_RESPONSE_FOUND
 from .utils.decorators import requires_params
 from .utils.operations import READ, UPDATE, DELETE, CREATE
+from src.worker.tasks import calculate_sentiment_for_response
+from flask import current_app
 
 import src.database.crud.evalese_crud as ev
 
@@ -56,6 +58,10 @@ class SurveyResponseCRUD:
 
         try:
             session.commit()
+            if current_app.config.get("USE_SENTIMENT") is True:
+                calculate_sentiment_for_response.delay(
+                    new_response.uuid
+                )
         except Exception as e:
             session.rollback()
             raise DatabaseCommitFailed(

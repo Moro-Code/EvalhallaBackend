@@ -82,7 +82,7 @@ APPLICATION_VARIABLES = {
     },
     "USE_SENTIMENT": {
         "required": True,
-        "type": bool,
-        "default": False
+        "type": str,
+        "default": "False" 
     }
 }

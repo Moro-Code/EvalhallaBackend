@@ -16,6 +16,7 @@ class CelerySingleton:
                         return self.run(*args, **kwargs)
             
             CelerySingleton.celery.Task = ContextClass
+            print(CelerySingleton.celery)
     
     def get_celery(self):
         return self.celery

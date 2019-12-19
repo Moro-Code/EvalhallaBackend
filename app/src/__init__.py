@@ -7,7 +7,7 @@ import sys
 from .database import init_app as initialize_database
 
 from .utils.configuration import load_application_variables, generate_amqp_uri, generate_database_uri
-from .api import register_routes
+
 
 def create_app(env="production") -> Flask:
 
@@ -37,6 +37,11 @@ def create_app(env="production") -> Flask:
     app.config["DATABASE_URI"] = generate_database_uri(**app.config)
     app.config["BROKER_URI"] = generate_amqp_uri(**app.config)
 
+    if app.config["USE_SENTIMENT"] == "True":
+        app.config["USE_SENTIMENT"] = True
+    else:
+        app.config["USE_SENTIMENT"] = False
+
     if app.config["USE_SENTIMENT"] is True:
         g_app_credentials = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
         if g_app_credentials is None:
@@ -54,10 +59,17 @@ def create_app(env="production") -> Flask:
     # initialize database
     initialize_database(app)
 
+    from .worker import CelerySingleton
+    celery = CelerySingleton(app).get_celery()
+
+    # import tasks so that they are defined in the celery app
+    from src.worker.tasks import add_two_numbers
+
     # register the api routes
+    from .api import register_routes
     register_routes(app)
     
-    return app
+    return app, celery 
 
 
 

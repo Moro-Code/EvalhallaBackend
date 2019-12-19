@@ -57,6 +57,7 @@ RUN dos2unix configs/etc/init.d/celeryd.sh
 RUN dos2unix configs/nginx/default 
 RUN dos2unix configs/bintray.rabbitmq.list
 
+
 # moving deb configs and install rabbitmq
 RUN cp configs/bintray.rabbitmq.list /etc/apt/sources.list.d/bintray.rabbitmq.list && \
 apt-get update -y && \
