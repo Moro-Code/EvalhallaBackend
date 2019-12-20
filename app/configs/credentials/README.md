@@ -1,0 +1,1 @@
+Place your google natural language API credentials here. This should be a json file with your service key you can download from your Google Cloud Console. Note this will be ignored by git for security (obviously)

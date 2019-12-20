@@ -1,5 +1,6 @@
 from src.api.utils.blueprint_wrapper import api_blueprint_wrapper
 from .EvaleseResource import EvaleseResource
+from .ResponsesResource import SurveyResponseResource
 
 
 @api_blueprint_wrapper
@@ -9,4 +10,10 @@ def routes_creator(api):
         "/evalese",
         "/evalese/<string:surveyName>",
         endpoint = "evalese"
+    )
+    api.add_resource(
+        SurveyResponseResource, 
+        "/responses",
+        "/responses/<string:surveyName>",
+        endpoint = "responses"
     )

@@ -57,6 +57,7 @@ RUN dos2unix configs/etc/init.d/celeryd.sh
 RUN dos2unix configs/nginx/default 
 RUN dos2unix configs/bintray.rabbitmq.list
 
+
 # moving deb configs and install rabbitmq
 RUN cp configs/bintray.rabbitmq.list /etc/apt/sources.list.d/bintray.rabbitmq.list && \
 apt-get update -y && \
@@ -84,6 +85,11 @@ chmod 777 /etc/init.d/celeryd
 
 COPY ./src ./src
 COPY ./app.py ./app.py
+
+ARG GOOGLE_APPLICATION_CREDENTIALS
+ENV GOOGLE_APPLICATION_CREDENTIALS ${GOOGLE_APPLICATION_CREDENTIALS}
+ARG EVALHALLA_USE_SENTIMENT
+ENV EVALHALLA_USE_SENTIMENT ${EVALHALLA_USE_SENTIMENT}
 
 ENTRYPOINT [ "/bin/bash", "configs/scripts/start.sh" ]
 

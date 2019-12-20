@@ -16,8 +16,8 @@ phases:
     runtime-versions:
       docker: 18
       # name: version
-    #commands:
-      #- yarn install
+    commands:
+      - aws s3 cp s3://evalhalla-secrets-bucket/credentials.json app/credentials
       # - command
   #pre_build:
     #commands:

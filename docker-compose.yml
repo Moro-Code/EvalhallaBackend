@@ -8,7 +8,7 @@ services:
       context: ./app
       dockerfile: Dockerfile
       args:
-        APP_ENV: production
+        APP_ENV: ${APP_ENV}
     ports:
       - 5000:80
       - 5050:15672
@@ -16,11 +16,12 @@ services:
       - EVALHALLA_AMQP_USER=dev_inst
       - EVALHALLA_AMQP_PASSWORD=dev_inst
       - EVALHALLA_AMQP_VHOST=evalhalla
-      - EVALHALLA_DATABASE_USER=postgresadmin
-      - EVALHALLA_DATABASE_PASSWORD=letmein
-      - EVALHALLA_DATABASE_HOST=postgres
-      - EVALHALLA_DATABASE_NAME=evalhalla
-      - PLATFORM=${EVALHALLA_PLATFORM}
+      - EVALHALLA_DATABASE_USER=${EVALHALLA_DATABASE_USER}
+      - EVALHALLA_DATABASE_PASSWORD=${EVALHALLA_DATABASE_PASSWORD}
+      - EVALHALLA_DATABASE_HOST=${EVALHALLA_DATABASE_HOST}
+      - EVALHALLA_DATABASE_NAME=${EVALHALLA_DATABASE_NAME}
+      - EVALHALLA_USE_SENTIMENT=True
+      - GOOGLE_APPLICATION_CREDENTIALS=/etc/credentials/credentials.json
   postgres:
     image: "postgres:11.6"
     environment:
