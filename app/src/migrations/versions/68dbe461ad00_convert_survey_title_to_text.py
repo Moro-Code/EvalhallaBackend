@@ -24,7 +24,11 @@ def upgrade():
     op.alter_column(
         "surveys", "survey_name",
         existing_type=sa.String(length=20),
-        type=sa.Text
+        type_=sa.Text
+    )
+    op.alter_column(
+        "survey_responses", "processed",
+        server_default = sa.text("false")
     )
     # ### end Alembic commands ###
 
@@ -34,6 +38,11 @@ def downgrade():
     op.alter_column(
         "surveys", "survey_name",
         existing_type=sa.Text,
-        type=sa.String(length=20)
+        type_=sa.String(length=20)
+    )
+
+    op.alter_column(
+        "survey_responses", "processed",
+        server_default = sa.text("true")
     )
     # ### end Alembic commands ###
