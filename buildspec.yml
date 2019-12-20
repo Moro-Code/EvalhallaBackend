@@ -17,7 +17,7 @@ phases:
       docker: 18
       # name: version
     commands:
-      - aws s3 cp s3://evalhalla-secrets-bucket/credentials.json app/credentials
+      - aws s3 cp s3://evalhalla-secrets-bucket/credentials.json app/configs/credentials/
       # - command
   #pre_build:
     #commands:
