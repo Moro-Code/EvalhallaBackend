@@ -84,5 +84,24 @@ APPLICATION_VARIABLES = {
         "required": True,
         "type": str,
         "default": "False" 
+    },
+    "BASIC_AUTH_USERNAME": {
+        "required": True,
+        "type": str,
+        "config_opts":{
+            "configuration_file_variable": False
+        }
+    },
+    "BASIC_AUTH_PASSWORD": {
+        "required": True,
+        "type": str,
+        "config_opts": {
+            "configuration_file_variable": False
+        }
+    },
+    "BASIC_AUTH_REALM": {
+        "required": True,
+        "type": str,
+        "default": "Evalhalla  API Protected Route"
     }
 }
