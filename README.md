@@ -1,6 +1,12 @@
+[Site-Map](/site-map)
+
 # Evalhalla Backend Repository 
 
-This repo contains the backend application for the Evalhalla project built on Docker, Flask, Gunicorn, NGINX, PostgreSQL, RabbitMQ and Celery. The application is deployed on AWS cloud using Elastic Beanstalk. The purpose of this backend application is to process, store and get data for the Evalhalla Client by means of a REST API. This application is under development, the docs will change.   
+This repo contains the backend application for the Evalhalla project built on Docker, Flask, Gunicorn, NGINX, PostgreSQL, RabbitMQ and Celery. The application is deployed on AWS cloud using Elastic Beanstalk. The purpose of this backend application is to process, store and get data for the Evalhalla Client by means of a REST API. This application is under development as such, please expect the docs to change frequently
+
+## Documentation Index
+
+You can find a list of all the documentation pages as well as their descriptions [here](docs/documentation_index.md)
 
 ## Getting it running on your machine 
 

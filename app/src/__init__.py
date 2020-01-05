@@ -1,5 +1,6 @@
 
 from flask import Flask
+from flask_basicauth import BasicAuth
 from flask_cors import CORS
 import os
 import logging
@@ -25,19 +26,13 @@ def create_app(env="production") -> Flask:
         else:
             CORS(app)
         
-        @app.route("/")
-        def good_api(): # pylint: disable=W0612
-            return "It Works!"
     else:
         CORS(app)
-
-        @app.route("/testing")
-        def testing(): # pylint: disable=W0612
-            return "It Works"
 
     app.config["DATABASE_URI"] = generate_database_uri(**app.config)
     app.config["BROKER_URI"] = generate_amqp_uri(**app.config)
 
+    # configure sentiment analysis
     if app.config["USE_SENTIMENT"] == "True":
         app.config["USE_SENTIMENT"] = True
     else:
@@ -57,6 +52,30 @@ def create_app(env="production") -> Flask:
             )
         app.config["GOOGLE_APPLICATION_CREDENTIALS"] = g_app_credentials
     
+    # configure basic auth
+    if app.config["BASIC_AUTH_ENABLED"] == "True":
+        app.config["BASIC_AUTH_ENABLED"] = True
+    else:
+        app.config["BASIC_AUTH_ENABLED"] = False
+
+    if app.config["BASIC_AUTH_ENABLED"] is True:
+        if app.config.get("BASIC_AUTH_USERNAME") is None:
+            raise ValueError(
+                "The BASIC_AUTH_ENABLED flag has been specified as True however, BASIC_AUTH_USERNAME was not provided"
+            )
+        elif app.config.get("BASIC_AUTH_PASSWORD") is None:
+            raise ValueError(
+                "The BASIC_AUTH_ENABLED flag has been specified as True however, BASIC_AUTH_PASSWORD was not provided"
+            )
+        elif app.config.get("BASIC_AUTH_REALM") is None:
+            raise ValueError(
+                "The BASIC_AUTH_ENABLED flag has been specified as True however, BASIC_AUTH_REALM was not provided"
+            )
+        
+        BasicAuth(app=app)
+
+
+
     # initialize database
     initialize_database(app)
 
