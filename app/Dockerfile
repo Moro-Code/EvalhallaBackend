@@ -1,3 +1,12 @@
+FROM node:10
+
+COPY ./front-end .
+
+ENV NODE_ENV production
+
+RUN npm install && npm run build
+
+
 FROM  ubuntu:18.04
 
 ARG APP_ENV
@@ -61,6 +70,7 @@ RUN dos2unix configs/scripts/start.sh
 RUN dos2unix configs/etc/default/celeryd 
 RUN dos2unix configs/etc/init.d/celeryd.sh 
 RUN dos2unix configs/nginx/default 
+RUN dos2unix configs/nginx/default-with-frontend
 RUN dos2unix configs/bintray.rabbitmq.list
 
 
@@ -68,8 +78,6 @@ RUN dos2unix configs/bintray.rabbitmq.list
 RUN cp configs/bintray.rabbitmq.list /etc/apt/sources.list.d/bintray.rabbitmq.list && \
 apt-get update -y && \
 apt-get install rabbitmq-server -y --fix-missing
-
-RUN cp configs/nginx/default /etc/nginx/sites-enabled/default && nginx -t
 
 # set the permission of the executable which will start the server
 RUN chmod 777 configs/scripts/start.sh
@@ -91,6 +99,10 @@ chmod 777 /etc/init.d/celeryd
 
 COPY ./src ./src
 COPY ./app.py ./app.py
+
+ARG ENABLE_FRONT_END
+ENV ENABLE_FRONT_END ${ENABLE_FRONT_END}
+COPY --from=0 build ./front-end
 
 ARG GOOGLE_APPLICATION_CREDENTIALS="/etc/credentials/credentials.json"
 ENV GOOGLE_APPLICATION_CREDENTIALS ${GOOGLE_APPLICATION_CREDENTIALS}

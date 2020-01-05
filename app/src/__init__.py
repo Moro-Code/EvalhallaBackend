@@ -8,6 +8,7 @@ import sys
 from .database import init_app as initialize_database
 
 from .utils.configuration import load_application_variables, generate_amqp_uri, generate_database_uri
+from .utils.middleware.prefixer import PrefixMiddleware
 
 
 def create_app(env="production") -> Flask:
@@ -73,8 +74,12 @@ def create_app(env="production") -> Flask:
             )
         
         BasicAuth(app=app)
-
-
+    
+    if app.config["ENABLE_FRONT_END"] == "True":
+        app.config["ENABLE_FRONT_END"] = True
+        app.wsgi_app = PrefixMiddleware(app.wsgi_app)
+    else:
+        app.config["ENABLE_FRONT_END"] = False
 
     # initialize database
     initialize_database(app)

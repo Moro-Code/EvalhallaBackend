@@ -102,5 +102,10 @@ APPLICATION_VARIABLES = {
         "required": False,
         "type": str,
         "default": "Evalhalla Privileged Resource"
+    },
+    "ENABLE_FRONT_END": {
+        "required": False,
+        "type": str,
+        "default": "False"
     }
 }
