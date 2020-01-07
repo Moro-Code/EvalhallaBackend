@@ -4,33 +4,32 @@ import { Link, useLocation } from "react-router-dom"
 
 
 
-function navListItem(props) {
+function navLink(props) {
 
     const location = useLocation()
 
     const getClassString = (pathname) => {
         if ( pathname === props.link){
-            return props.activeClassName ? props.activeClassName: null
+            return props.activeClassName ? props.activeClassName:
+                ( props.className ? props.className: null)
         }
         return props.className ? props.activeClassName: null 
     }
 
     return (
-        <li className = {getClassString(location.pathname)}>
-            <Link to= { props.link }>
-                {props.linkText}
-            </Link>
-        </li>
+        <Link className={getClassString(location.pathname)} to= { props.link }>
+            {props.linkText}
+        </Link>
     )
     
 }
 
 
-navListItem.PropTypes = {
+navLink.PropTypes = {
     className: PropTypes.string,
     activeClassName: PropTypes.string,
     linkText: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired
 }
 
-export default navListItem
+export default navLink
