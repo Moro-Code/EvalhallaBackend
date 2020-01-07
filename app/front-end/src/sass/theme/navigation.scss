@@ -1,9 +1,33 @@
 
+$nav-background-color: #24292e;
+$nav-text-color-mobile: black;
+$nav-text-color-mobile-hover: grey;
+$nav-text-color: #fff;
+$nav-text-color-hover: hsla(0,0%,100%,.7);
+
+
+
+.navContainer{
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    width: inherit;
+}
+
+.mNavContainer{
+    flex-direction: column;
+}
+
+.lNavContainer{
+    flex-direction: row;
+}
+
 
 %navItem{
     position: relative;
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
     flex-wrap: nowrap;
     align-items: center;
     height: inherit;
@@ -25,17 +49,33 @@
 }
 
 .lColor{
-    color: #fff;
-    &a:hover{
-        color: hsla(0,0%,100%,.7)
+    color: $nav-text-color;
+    & a:hover{
+        color: $nav-text-color-hover;
     }
 }
 
 .mColor{
-    color: black;
+    color: $nav-text-color-mobile;
     & a:hover{
-        color: grey;
+        color: $nav-text-color-mobile-hover
     }
 }
+
+.hamburgerButtonContainer{
+    border: 0px;
+    display: inline-block;
+    height: inherit;
+    width: 50px;
+    margin: 0 5px;
+    align-self: end;
+    background-color: $nav-background-color;
+    color: $nav-text-color;
+    & span:hover{
+        color: $nav-text-color-hover;
+    }
+}
+
+
 
 

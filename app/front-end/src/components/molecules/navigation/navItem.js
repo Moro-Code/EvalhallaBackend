@@ -1,5 +1,4 @@
 import React from "react"
-import { useSelector } from "react-redux"
 import { SCREEN_SIZES } from "../../../redux/actions"
 import PropTypes from "prop-types"
 import Icon from "../../atoms/icons/icon"
@@ -9,7 +8,7 @@ import NavLink from "../../atoms/navigation/navLink"
 
 function NavItem(props){
 
-    const screenSize = useSelector( (state) => state.screenSize )
+    
 
     const getLinkColor = function(screenSize){
         switch (screenSize){
@@ -23,7 +22,7 @@ function NavItem(props){
     }
 
     return (
-        <NavItemContainer className = {`navItemContainer ${getLinkColor(screenSize)}`}>
+        <NavItemContainer className = {`navItemContainer ${getLinkColor(props.screenSize)}`}>
             {
                 props.icon && props.icon !== "" ? 
                     <div className="navItemContainerIcon">
@@ -43,6 +42,7 @@ function NavItem(props){
 
 
 NavItem.PropTypes = {
+    screenSize: PropTypes.string.isRequired,
     icon: PropTypes.string,
     link: PropTypes.string.isRequired,
     linkText: PropTypes.string.isRequired

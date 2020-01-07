@@ -5,9 +5,9 @@ import PropTypes from "prop-types"
 
 function NavItemContainer(props){
     return (
-        <li className = {props.className ? props.className: null}>
+        <div className = {props.className ? props.className: null}>
             {props.children}
-        </li>
+        </div>
     )
 }
 
@@ -15,10 +15,10 @@ function NavItemContainer(props){
 NavItemContainer.PropTypes = {
     className: PropTypes.string,
     children: PropTypes.arrayOf(
-        PropTypes.oneOf(
+        PropTypes.oneOf([
             PropTypes.node,
             PropTypes.element
-        )
+        ])
     )
 }
 

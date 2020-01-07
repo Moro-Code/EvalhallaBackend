@@ -16,10 +16,18 @@ function NavWrapper(props){
 
 NavWrapper.PropTypes = {
     className: PropTypes.string,
-    children: PropTypes.arrayOf(PropTypes.oneOf([
+    children: PropTypes.oneOf([
         PropTypes.node,
-        PropTypes.element
-    ]).isRequired)
+        PropTypes.element,
+        PropTypes.arrayOf(
+            PropTypes.oneOf(
+                [
+                    PropTypes.node,
+                    PropTypes.element
+                ]
+            )
+        )
+    ]).isRequired
 }
 
 export default NavWrapper
