@@ -1,23 +1,41 @@
 
-.iconNavItem{
+
+%navItem{
+    position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
     height: inherit;
     justify-content: flex-start;
-    color: #fff;
-    
-    &IconContainer{
+    margin: 0px 5px;
+
+}
+
+.navItemContainer{
+    @extend %navItem; 
+    &Icon{
         margin: 0px 5px;
         width: 50px;
         font-size: 1.2em;
     }
-
     &Link{
         font-size: 1.2em;
-        &:hover{
-            color: hsla(0,0%,100%,.7);
-        }
     }
 }
+
+.lColor{
+    color: #fff;
+    &a:hover{
+        color: hsla(0,0%,100%,.7)
+    }
+}
+
+.mColor{
+    color: black;
+    & a:hover{
+        color: grey;
+    }
+}
+
+

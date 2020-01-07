@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 
 
-function NavItem(props){
+function NavItemContainer(props){
     return (
         <li className = {props.className ? props.className: null}>
             {props.children}
@@ -12,7 +12,7 @@ function NavItem(props){
 }
 
 
-NavItem.PropTypes = {
+NavItemContainer.PropTypes = {
     className: PropTypes.string,
     children: PropTypes.arrayOf(
         PropTypes.oneOf(
@@ -22,4 +22,4 @@ NavItem.PropTypes = {
     )
 }
 
-export default NavItem
+export default NavItemContainer
