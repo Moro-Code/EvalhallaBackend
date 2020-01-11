@@ -30,7 +30,7 @@ function NavMenu(props){
     }
 
     return (
-        <div className = "navMenuContainer"> 
+        <> 
             
             <div className= "navMenu">
                 <div 
@@ -53,7 +53,7 @@ function NavMenu(props){
 
                     </MobileNavMenu>: null 
             }
-        </div>
+        </>
     )
 
 }

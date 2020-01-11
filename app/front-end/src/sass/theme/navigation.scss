@@ -19,30 +19,21 @@ $nav-text-color-hover: hsla(0,0%,100%,.7);
 
 .lNavContainer{
     position: relative;
-    right: 50px;
+    right: 20px;
     flex-direction: row;
     height: inherit;
     justify-content: flex-end;
 }
 
-
-%navItem{
+.navItemContainer{
     position: relative;
     display: flex;
     flex-direction: row;
-    max-width: 70px;
-    flex-grow: 1;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
-
-}
-
-.navItemContainer{
-    @extend %navItem; 
     &Icon{
         margin: 0px 5px;
-        width: 50px;
+        width: 25px;
         font-size: 1.2em;
     }
     &Link{
@@ -69,7 +60,9 @@ $nav-text-color-hover: hsla(0,0%,100%,.7);
 
 .mNavItemContainer{
     margin: 5px 5px;
+    height: 30px;
     color: $nav-text-color-mobile;
+    width: inherit;
     & a {
         color: $nav-text-color-mobile;
         text-decoration: none;
@@ -116,23 +109,21 @@ $nav-text-color-hover: hsla(0,0%,100%,.7);
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 100vh;
+    height: 100%;
     position: relative;
     margin-top: -50px;
     float: right;
+    z-index: 100;
     background-color: white;
-    &Logo{
-        font-size: 1.2em;
-        &Container{
-            display: flex;
-            flex-direction: row;
-            height: 50px;
-            flex-wrap: nowrap;
-            background-color: #fafbfc;
-            color: $nav-text-color-mobile;
-            & div {
-                flex-grow: 1;
-            }
+    &LogoContainer{
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        flex-wrap: nowrap;
+        background-color: #fafbfc;
+        color: $nav-text-color-mobile;
+        & div {
+            flex-grow: 1;
         }
     }
 }
@@ -144,7 +135,7 @@ $nav-text-color-hover: hsla(0,0%,100%,.7);
     height: 50px;
     flex-wrap: wrap;
     flex-direction: column;
-    z-index: 0;
+    z-index: 1;
     background-color: $nav-background-color;
     &Logo{
         color: $nav-text-color;

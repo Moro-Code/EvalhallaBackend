@@ -13,7 +13,7 @@ function NavLink(props) {
             return props.activeClassName ? props.activeClassName:
                 ( props.className ? props.className: null)
         }
-        return props.className ? props.activeClassName: null 
+        return props.className ? props.className: null 
     }
 
     return (

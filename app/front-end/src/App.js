@@ -11,6 +11,16 @@ function App() {
       linkText: "Home",
       link: "/",
       icon: "icon-survey-list"
+    },
+    {
+      linkText: "Upload",
+      link: "/upload",
+      icon: "icon-upload"
+    },
+    {
+      linkText: "Download",
+      link: "/download",
+      icon: "icon-download"
     }
   ]
 
@@ -18,12 +28,13 @@ function App() {
     <div className="App">
       <NavMenu links = {routes}>   
       </NavMenu>
-
-      <Switch>
-        <Route path = "/">
-           <h1>Hello</h1> 
-        </Route>
-      </Switch>
+      <div className= "content">
+        <Switch>
+          <Route path = "/">
+              <h1>Hello this is an extremely long h1 tag to test if something works</h1> 
+          </Route>
+        </Switch>
+      </div>
     </div>
   );
 }
