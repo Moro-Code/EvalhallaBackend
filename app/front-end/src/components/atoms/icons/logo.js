@@ -10,12 +10,12 @@ function Logo(props){
             props.className: null
         }
             style = {{
-            fontFamily: "Pacifico"
+            fontFamily: "Pacifico, cursive"
         }}>Evalhalla Admin Panel</span>
     )
 }
 
-Logo.PropTypes = {
+Logo.propTypes = {
     className: PropTypes.string
 }
 

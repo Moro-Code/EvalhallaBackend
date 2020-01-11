@@ -17,7 +17,7 @@ const store = createStore(
     )
 )
 
-const mediaQuery = window.matchMedia('(max-width: 700px')
+const mediaQuery = window.matchMedia('(max-width: 700px)')
 
 let sizeChangeHandler = (mq) => {
     if (mq.matches){
@@ -36,6 +36,6 @@ let sizeChangeHandler = (mq) => {
 
 sizeChangeHandler(mediaQuery)
 
-mediaQuery.addEventListener( sizeChangeHandler )
+mediaQuery.addListener(sizeChangeHandler )
 
 export default store

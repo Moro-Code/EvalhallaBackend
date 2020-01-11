@@ -10,19 +10,19 @@ function NavItem(props){
 
     
 
-    const getLinkColor = function(screenSize){
+    const getSizeClass = function(screenSize){
         switch (screenSize){
             case SCREEN_SIZES.LARGE:
-                return "lColor"
+                return "lNavItemContainer"
             case SCREEN_SIZES.SMALL:
-                return "mColor"
+                return "mNavItemContainer"
             default:
-                return "lColor"
+                return "lNavItemContainer"
         }
     }
 
     return (
-        <NavItemContainer className = {`navItemContainer ${getLinkColor(props.screenSize)}`}>
+        <NavItemContainer className = {`navItemContainer ${getSizeClass(props.screenSize)}`}>
             {
                 props.icon && props.icon !== "" ? 
                     <div className="navItemContainerIcon">
@@ -41,7 +41,7 @@ function NavItem(props){
 
 
 
-NavItem.PropTypes = {
+NavItem.propTypes = {
     screenSize: PropTypes.string.isRequired,
     icon: PropTypes.string,
     link: PropTypes.string.isRequired,

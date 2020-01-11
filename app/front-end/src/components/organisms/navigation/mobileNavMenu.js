@@ -1,17 +1,32 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { SCREEN_SIZES } from "../../../redux/actions"
-import 
 import NavContainer from "../../molecules/navigation/navContainer"
+import Logo from "../../atoms/icons/logo"
+import CloseButton from "../../molecules/navigation/closeButton"
 
 
 
 
 function MobileNavMenu(props){
-
+    return(
+        <div className="mobileNavMenu slide-left">
+            <div className = "mobileNavMenuLogoContainer">
+                <div className = "align-start-center">
+                    <Logo className = "mobileNavMenuLogo"></Logo>
+                </div>
+                <div className = "align-end-center">
+                    <CloseButton onClick = {props.closeOnClick}></CloseButton>
+                </div>
+            </div>
+            <NavContainer screenSize = {SCREEN_SIZES.SMALL} 
+                        links={props.links}>
+            </NavContainer>
+        </div>
+    ) 
 }
 
-MobileNavMenu.PropTypes = {
+MobileNavMenu.propTypes = {
     links: PropTypes.arrayOf(
         PropTypes.objectOf(
             PropTypes.shape(
@@ -22,5 +37,8 @@ MobileNavMenu.PropTypes = {
                 }
             )
         )
-    )
+    ).isRequired,
+    closeOnClick: PropTypes.func.isRequired
 }
+
+export default MobileNavMenu

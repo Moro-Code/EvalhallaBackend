@@ -12,14 +12,8 @@ function NavItemContainer(props){
 }
 
 
-NavItemContainer.PropTypes = {
-    className: PropTypes.string,
-    children: PropTypes.arrayOf(
-        PropTypes.oneOf([
-            PropTypes.node,
-            PropTypes.element
-        ])
-    )
+NavItemContainer.propTypes = {
+    className: PropTypes.string
 }
 
 export default NavItemContainer

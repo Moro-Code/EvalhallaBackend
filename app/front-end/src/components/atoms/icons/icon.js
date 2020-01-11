@@ -9,7 +9,9 @@ function Icon(props){
     )
 }
 
-Icon.PropTypes = {
+Icon.propTypes = {
     icon: PropTypes.string.isRequired,
     className: PropTypes.string
 }
+
+export default Icon

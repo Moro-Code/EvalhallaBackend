@@ -10,9 +10,9 @@ function NavContainer(props){
 
     const renderNavItems = (links) => {
         let itemComponentArray = []
-        for ( link in links){
+        for ( let link in links){
             itemComponentArray.push(
-                <NavItem {...link} screenSize = {props.screenSize}> 
+                <NavItem  link = {links[link].link } linkText = {links[link].linkText} icon = {links[link].icon} screenSize = {props.screenSize}> 
                 </NavItem>
             )
         }
@@ -46,16 +46,14 @@ function NavContainer(props){
 
 }
 
-NavContainer.PropTypes = {
+NavContainer.propTypes = {
     links: PropTypes.arrayOf(
-        PropTypes.objectOf(
-            PropTypes.shape(
-                {
-                    link: PropTypes.string.isRequired,
-                    linkText: PropTypes.string.isRequired,
-                    icon: PropTypes.string
-                }
-            )
+        PropTypes.shape(
+            {
+                link: PropTypes.string.isRequired,
+                linkText: PropTypes.string.isRequired,
+                icon: PropTypes.string
+            }
         )
     ),
     screenSize: PropTypes.string.isRequired

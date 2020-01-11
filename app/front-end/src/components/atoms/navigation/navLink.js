@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom"
 
 
 
-function navLink(props) {
+function NavLink(props) {
 
     const location = useLocation()
 
@@ -25,11 +25,11 @@ function navLink(props) {
 }
 
 
-navLink.PropTypes = {
+NavLink.propTypes = {
     className: PropTypes.string,
     activeClassName: PropTypes.string,
     linkText: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired
 }
 
-export default navLink
+export default NavLink

@@ -14,8 +14,7 @@ export const fetchSurveysDispatcher = function(numPosts=50, pageNumber=1){
         dispatch(requestSurveysCreator())
 
         return fetch(
-            EVALHALLA_BACKEND_URL + `?numberOfItems=${numPosts}` + "&" 
-            + `pageNumber=${pageNumber}`
+            EVALHALLA_BACKEND_URL + `?numberOfItems=${numPosts}&pageNumber=${pageNumber}`
         ).then(
             response => {
                 if (response.ok){
@@ -41,7 +40,7 @@ export const fetchSurveysDispatcher = function(numPosts=50, pageNumber=1){
                 }
             },
             () => dispatch(
-                recieveSuveysFailedCreator(
+                recieveSurveysFailedCreator(
                     RECIEVE_SURVEYS_FAILED_TYPES.NETWORK_ERROR
                 )
             )
@@ -70,7 +69,7 @@ const isSurveysFetchNeeded = (dispatch, state) => {
         
         const lastUpdatedUnixTS = Number(lastUpdated)
 
-        if (lastUpdatedUnixTS !== lastUpdatedUnixTS ){
+        if (isNaN(lastUpdatedUnixTS)){
             return true 
         }
 

@@ -14,20 +14,8 @@ function NavWrapper(props){
 }
 
 
-NavWrapper.PropTypes = {
+NavWrapper.propTypes = {
     className: PropTypes.string,
-    children: PropTypes.oneOf([
-        PropTypes.node,
-        PropTypes.element,
-        PropTypes.arrayOf(
-            PropTypes.oneOf(
-                [
-                    PropTypes.node,
-                    PropTypes.element
-                ]
-            )
-        )
-    ]).isRequired
 }
 
 export default NavWrapper

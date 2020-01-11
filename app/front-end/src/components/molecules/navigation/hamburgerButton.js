@@ -5,15 +5,14 @@ import Icon from "../../atoms/icons/icon"
 
 function HamburgerButton(props){
     return(
-        <button onClick = {props.onClick} className = ".hamburgerButtonContainer">
+        <button onClick = {props.onClick} className = "hamburgerButtonContainer">
             <Icon icon="icon-hamburger"></Icon>
         </button>
     )
 }
 
-HamburgerButton.PropTypes = {
+HamburgerButton.propTypes = {
     onClick: PropTypes.func.isRequired,
-    screenSize: PropTypes.string.isRequired
 }
 
 export default HamburgerButton

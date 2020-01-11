@@ -1,15 +1,14 @@
 @font-face {
-    font-family: 'icomoon';
-    src:  url(../icons/fonts/icomoon.eot?lyfgzs);
-    src:  url(../icons/fonts/icomoon.eot?lyfgzs#iefix) format('embedded-opentype'),
-      url(../icons/fonts/icomoon.ttf?lyfgzs) format('truetype'),
-      url(../icons/fonts/icomoon.woff?lyfgzs) format('woff'),
-      url(../icons/fonts/icomoon.svg?lyfgzs#icomoon) format('svg');
+    font-family: 'icons';
+    src:  url('../icons/fonts/icomoon.eot?6a3jt6');
+    src:  url('../icons/fonts/icomoon.eot?6a3jt6#iefix') format('embedded-opentype'),
+      url('../icons/fonts/icomoon.ttf?6a3jt6') format('truetype'),
+      url('../icons/fonts/icomoon.woff?6a3jt6') format('woff'),
+      url('../icons/fonts/icomoon.svg?6a3jt6#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
 }
-
 
 %icon {
     font-family: 'icons' !important;
@@ -40,5 +39,9 @@
     &-survey-list:before{
         @extend %icon;
         content: "\e9ba"
+    }
+    &-close:before{
+        @extend %icon;
+        content: "\ea0f";
     }
 }
