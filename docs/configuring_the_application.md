@@ -3,7 +3,7 @@ title: Configuring The Application
 permalink: /configuring-the-application/
 ---
 
-[Home](/) [Site-Map](/site-map)
+[Home](../index.md) [Site-Map](documentation_index.md)
 
 # Configuring The Application ⚙️
 

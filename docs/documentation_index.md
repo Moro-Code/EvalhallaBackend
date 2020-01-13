@@ -4,9 +4,9 @@ permalink: /site-map/
 ---
 # Site Map 
 
-[Home](/): The Homepage of the applicatioopm
+[Home](../index.md): The Homepage of the applicatioopm
 
-[Prerequisites](/prerequisites) What you'll need installed on your Machine in order to run this application
+[Prerequisites](prerequisites.md) What you'll need installed on your Machine in order to run this application
 
-[Configuring The Application](/configuring-the-application)
+[Configuring The Application](configuring_the_application.md)
 Information about application configuration and environment variables.
