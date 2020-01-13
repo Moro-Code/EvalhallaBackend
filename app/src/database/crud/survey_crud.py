@@ -20,8 +20,6 @@ class SurveyCRUD:
 
     @requires_params(READ, SurveyModel.__tablename__, "surveyName")
     def read_survey_by_surveyName(self,session, **kwargs):
-        # pylint: disable=no-self-argument
-        # pylint: disable=no-member
         surveyName = kwargs.get("surveyName")
         survey = session.query(SurveyModel).filter_by(
             surveyName = surveyName
@@ -34,11 +32,24 @@ class SurveyCRUD:
                 )
             )
         return survey
-        
+    
+    @requires_params(READ, SurveyModel.__tablename__)
+    def read_surveys(self, session, **kwargs):
+        pageNumber = kwargs.pop("pageNumber", None) or 1 
+        numberOfItems = kwargs.pop("numberOfItems", None) or 20
+
+        limit = numberOfItems
+        offset = (pageNumber - 1) * numberOfItems
+
+        surveys = session.query(SurveyModel).order_by(
+            SurveyModel.createdOn.desc()
+        ).limit(limit).offset(offset)
+
+        return surveys.all() 
+
+
     @requires_params(CREATE, SurveyModel.__tablename__, "surveyName")
     def create_survey(self, session, **kwargs):
-        # pylint: disable=no-self-argument
-        # pylint: disable=no-member
         surveyName = kwargs.get("surveyName")
         new_survey = SurveyModel(
             surveyName=surveyName
@@ -57,8 +68,6 @@ class SurveyCRUD:
     
     @requires_params(DELETE, SurveyModel.__tablename__, "surveyName")
     def delete_survey(self, session, **kwargs):
-        # pylint: disable=no-self-argument
-        # pylint: disable=no-member
         surveyName = kwargs.get("surveyName")
         session.query(SurveyModel).filter_by(surveyName=surveyName).delete()
         try:

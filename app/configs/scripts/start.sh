@@ -29,19 +29,21 @@ fi
 NUM_CORES=$( getconf _NPROCESSORS_ONLN )
 echo "$NUM_CORES cpu cores detected on system"
 
-echo "Starting nginx service"
+if [ "$ENABLE_FRONT_END" == "True" ]
+then
+   mv configs/nginx/default-with-frontend /etc/nginx/sites-enabled/default
+else
+   mv configs/nginx/default /etc/nginx/sites-enabled/default
+fi
+
+echo "Testing NGINX configuration"
+nginx -t 
+
+echo "Starting NGINX service"
 service nginx start
 
 export FLASK_ENV=${APP_ENV}
-export EVALHALLA_DATABASE_HOST=${EVALHALLA_DATABASE_HOST}
-export EVALHALLA_DATABASE_USER=${EVALHALLA_DATABASE_USER}
-export EVALHALLA_DATABASE_NAME=${EVALHALLA_DATABASE_NAME}
-export EVALHALLA_DATABASE_PASSWORD=${EVALHALLA_DATABASE_PASSWORD}
-export EVALHALLA_AMQP_USER=${EVALHALLA_AMQP_USER}
-export EVALHALLA_AMQP_VHOST=${EVALHALLA_AMQP_VHOST}
-export EVALHALLA_AMQP_PASSWORD=${EVALHALLA_AMQP_PASSWORD}
-export GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
-export EVALHALLA_USE_SENTIMENT=${EVALHALLA_USE_SENTIMENT}
+export EVALHALLA_ENABLE_FRONT_END=${ENABLE_FRONT_END}
 
 echo "export APP_ENV=${APP_ENV}" >> /etc/default/celeryd
 echo "export FLASK_ENV=${APP_ENV}" >> /etc/default/celeryd

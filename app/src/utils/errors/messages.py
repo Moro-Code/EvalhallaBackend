@@ -76,7 +76,7 @@ API_CONSTRAINT_VIOLATED = (
 )
 
 PAYLOAD_MUST_BE_SENT = (
-    "The following resource '{resource}' requires a payload in body of the request"
+    "The following resource '{resource}' requires a payload in body of the request "
 )
 
 #### CRUD ERRORS 

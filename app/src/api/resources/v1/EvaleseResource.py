@@ -15,30 +15,26 @@ from src.utils.errors.custom_errors import ClientError, InternalError
 arg_parser = reqparse.RequestParser()
 arg_parser.add_argument("uuid", type=str, help="argument uuid must be a string")
 arg_parser.add_argument("surveyName", type=str, help="argument surveyName must be a string")
-arg_parser.add_argument("pageNumber", type=int, help="argument index must be an interger greater than 0")
+arg_parser.add_argument("pageNumber", type=int, help="argument pageNumber must be an interger greater than 0")
 arg_parser.add_argument("numberOfItems", type=int, help="argument numberOfItems must be an integer greater that 0 and less or equal to 100", default=20)
 
 
 
 def evalese_response(evalese, surveyName):
+    def prepare_json(evalese):
+        return {
+            "surveyName": surveyName,
+            "evalese": evalese.evalese,
+            "createdOn": evalese.createdOn.isoformat(),
+            "uuid": evalese.uuid
+        }
     if isinstance(evalese, list):
         evalese_array = []
         for version in evalese:
-            evalese_array.append(
-                {
-                    "surveyName": surveyName,
-                    "evalese": version.evalese,
-                    "createdOn": version.createdOn.isoformat(),
-                    "uuid": version.uuid
-                }
-            )
+            evalese_array.append(prepare_json(version))
         return evalese_array
-    return {
-        "surveyName": surveyName,
-        "evalese": evalese.evalese,
-        "createdOn": evalese.createdOn.isoformat(),
-        "uuid": evalese.uuid
-    }
+    
+    return prepare_json(evalese)
 
 
 

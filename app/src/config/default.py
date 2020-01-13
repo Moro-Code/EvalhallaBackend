@@ -81,8 +81,31 @@ APPLICATION_VARIABLES = {
         "type": dict
     },
     "USE_SENTIMENT": {
-        "required": True,
+        "required": False,
         "type": str,
         "default": "False" 
+    },
+    "BASIC_AUTH_ENABLED": {
+        "required": False,
+        "type": str,
+        "default": "False"
+    },
+    "BASIC_AUTH_USERNAME": {
+        "required": False,
+        "type": str
+    },
+    "BASIC_AUTH_PASSWORD": {
+        "required": False,
+        "type": str 
+    },
+    "BASIC_AUTH_REALM": {
+        "required": False,
+        "type": str,
+        "default": "Evalhalla Privileged Resource"
+    },
+    "ENABLE_FRONT_END": {
+        "required": False,
+        "type": str,
+        "default": "False"
     }
 }
