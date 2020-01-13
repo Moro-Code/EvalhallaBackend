@@ -1,4 +1,4 @@
-[Site-Map](docs/documentation_index.md)
+[Site-Map](documentation_index.md)
 
 # Evalhalla Backend Repository 
 
