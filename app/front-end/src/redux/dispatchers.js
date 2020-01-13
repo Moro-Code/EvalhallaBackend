@@ -13,13 +13,19 @@ export const fetchSurveysDispatcher = function(numPosts=50, pageNumber=1){
 
         dispatch(requestSurveysCreator())
 
+        let fetchUrl = EVALHALLA_BACKEND_URL + `?numberOfItems=${numPosts}&pageNumber=${pageNumber}`
+
+        console.log(fetchUrl)
         return fetch(
-            EVALHALLA_BACKEND_URL + `?numberOfItems=${numPosts}&pageNumber=${pageNumber}`
+            fetchUrl
         ).then(
             response => {
                 if (response.ok){
+                    console.log("recieved response")
+                    console.log(response)
                     response.json().then(
                         data => {
+                            console.log("data recieved" + data )
                             dispatch(
                                 recieveSurveysCreator(
                                     data,
@@ -49,16 +55,21 @@ export const fetchSurveysDispatcher = function(numPosts=50, pageNumber=1){
 }
 
 const isSurveysFetchNeeded = (dispatch, state) => {
+    console.log("isSurveyFetchCalled")
     const surveys = state.surveys
-    const surveysData = surveys.data 
-    if ( !surveysData ){
-        const localstorageSurveys = JSON.parse(localStorage.getItem("surveys"))
+    console.log(surveys)
+    const surveysData = surveys.data
+    console.log(surveysData) 
+    if ( surveysData.length === 0 ){
+
+        const localstorageSurveys = localStorage.getItem("surveys")
         
-        if (! localstorageSurveys){
+        if (!localstorageSurveys){
             return true;
         }
         else{
-            dispatch(recieveSurveysCreator(localstorageSurveys))
+
+            dispatch(recieveSurveysCreator(JSON.parse(localstorageSurveys)))
         }
 
         const lastUpdated = localStorage.getItem("lastUpdated")
@@ -94,7 +105,9 @@ const isSurveysFetchNeeded = (dispatch, state) => {
 
 export const fetchSurveysIfNeeded = () => {
     return (dispatch, getState) => {
+        console.log("checking if fetch is needed ?")
         if (isSurveysFetchNeeded(dispatch, getState())) {
+            console.log("fetch is needed")
             return dispatch(fetchSurveysDispatcher(100, 1))
         }
         return Promise.resolve()

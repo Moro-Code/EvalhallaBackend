@@ -1,12 +1,16 @@
 import React from "react"
 import PropTypes from "prop-types"
 import SurveyInfo from "./surveyInfo"
+import * as moment from "moment-timezone"
 
 
 
 function SurveyCard(props){
-
-    const localCreatedOn = new Date(props.createdOn).toLocaleString()
+    const tzGuess = moment.tz.guess()
+    console.log(tzGuess)
+    const localCreatedOn = moment(props.createdOn + "Z").tz(tzGuess).format(
+        "MMMM Do YYYY, h:mm:ss a"
+    )
 
     return (
         <article className = "surveyCard">

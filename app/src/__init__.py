@@ -1,4 +1,3 @@
-
 from flask import Flask
 from flask_basicauth import BasicAuth
 from flask_cors import CORS
@@ -25,6 +24,7 @@ def create_app(env="production") -> Flask:
         if allowed_origins is not None:
             CORS(app, origins = allowed_origins)
         else:
+            print(app.config)
             CORS(app)
         
     else:

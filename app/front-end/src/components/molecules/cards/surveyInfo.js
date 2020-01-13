@@ -16,9 +16,11 @@ function SurveyInfo(props){
 
 SurveyInfo.propTypes = {
     itemName: PropTypes.string.isRequired,
-    itemData: PropTypes.oneOf(
-        PropTypes.string,
-        PropTypes.number
+    itemData: PropTypes.oneOfType(
+        [
+            PropTypes.string,
+            PropTypes.number
+        ]
     ).isRequired
 }
 

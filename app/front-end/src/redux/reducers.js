@@ -17,14 +17,15 @@ const surveys = function(state = {
             return {
                 ...state,
                 isFetching: false,
-                fetchFailed: false,
+                fetchFailed: true,
                 failedAt: action.failedAt,
                 failedBecause: action.failedBecause,
                 httpStatus: action.httpStatus
             }
         case TYPES.RECIEVE_SURVEYS:
             let copiedState = {
-                ...state
+                ...state,
+                isFetching: false
             }
             
             delete copiedState.httpStatus

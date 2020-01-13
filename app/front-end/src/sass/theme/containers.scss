@@ -1,7 +1,3 @@
-.content{
-    position: static;
-}
-
 #root{
     height: inherit;
     width: inherit;
@@ -10,4 +6,22 @@
 .App{
     height: inherit;
     width: inherit;
+}
+
+#content{
+    height: 100vh;
+}
+
+.surveysContainer{
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0px 10px;
+}
+
+.homeContainer{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }

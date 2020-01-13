@@ -1,5 +1,6 @@
 import React from 'react';
 import NavMenu from "./components/organisms/navigation/navMenu"
+import Home from "./components/organisms/home/home"
 import {
   Switch,
   Route
@@ -28,10 +29,10 @@ function App() {
     <div className="App">
       <NavMenu links = {routes}>   
       </NavMenu>
-      <div className= "content">
+      <div id = "content">
         <Switch>
           <Route path = "/">
-              <h1>Hello this is an extremely long h1 tag to test if something works</h1> 
+              <Home/>
           </Route>
         </Switch>
       </div>

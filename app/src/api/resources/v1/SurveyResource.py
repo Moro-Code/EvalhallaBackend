@@ -1,8 +1,9 @@
-from flask import request 
+from flask import request, current_app
 from flask_restful import Resource, reqparse
+from flask_basicauth import BasicAuth
 from src.utils.errors.messages import API_PARAMETER_MUST_BE_PROVIDED, PAYLOAD_MUST_BE_SENT, API_CONSTRAINT_VIOLATED
 from src.api.utils import error_response
-from src.api.utils.errors.error_types import API_PARAMETER_MISSING, API_PARAMETER_INCORRECT, INTERNAL_ERROR, NO_RESOURCE_FOUND
+from src.api.utils.errors.error_types import API_PARAMETER_MISSING, API_PARAMETER_INCORRECT, INTERNAL_ERROR, NO_RESOURCE_FOUND, PAYLOAD_MISSING_OR_EMPTY
 from src.database.crud.survey_crud import SurveyCRUD
 from src.utils.errors.custom_errors import ClientError, InternalError
 
@@ -71,4 +72,56 @@ class SurveyResource(Resource):
             return error_response(
                 INTERNAL_ERROR,
                 str(e)
-            ), 500 
+            ), 500
+    
+
+    def delete(self, surveyName = None ):
+        # pylint: disable=no-value-for-parameter
+
+        # basic auth protected route if basic auth is enabled
+        if current_app.config.get("BASIC_AUTH_ENABLED"):
+            print("basic_auth_enabled")
+            auth = BasicAuth()
+            auth_valid = auth.authenticate()
+            print(auth_valid)
+            if auth_valid is None or not auth_valid:
+                return auth.challenge()
+        
+        payload = request.get_json()
+
+        if surveyName is None:
+            if payload is None or not bool(payload):
+                return error_response(
+                    PAYLOAD_MISSING_OR_EMPTY,
+                    PAYLOAD_MUST_BE_SENT.format(
+                        resource = "Surveys"
+                    )
+                ), 400
+        elif surveyName is not None:
+            payload["surveyName"] = surveyName
+        
+
+
+        surveyToDelete = payload.get("surveyName")
+
+        if surveyToDelete is None:
+            return error_response(
+                API_PARAMETER_MISSING,
+                API_PARAMETER_MUST_BE_PROVIDED.format(
+                    resource = "Surveys",
+                    parameter = "surveyName"
+                )
+            ), 400
+        
+        try:
+            SurveyCRUD().delete_survey(surveyName = surveyToDelete)
+            return {
+                "surveyName": surveyToDelete
+            }, 200
+        except InternalError as e:
+            return error_response(
+                INTERNAL_ERROR,
+                str(e)
+            ), 500
+
+        

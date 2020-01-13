@@ -3,7 +3,7 @@ FROM node:10
 COPY ./front-end .
 
 ENV NODE_ENV production
-ENV REACT_APP_EVALHALLA_BACKEND_URL /api/
+ENV REACT_APP_EVALHALLA_BACKEND_URL "/api/"
 
 RUN npm install && npm run build
 

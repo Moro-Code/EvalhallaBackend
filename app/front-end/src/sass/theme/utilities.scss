@@ -1,3 +1,6 @@
+$icon-color: purple;
+$large-icon-size: 20em;
+
 .align-center-center{
     display: flex;
     justify-content: center;
@@ -16,6 +19,7 @@
     align-items: center;
 }
 
+
 .align-self-start{
     align-self: flex-start;
 }
@@ -24,3 +28,28 @@
     align-self: center;
 }
 
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.position-absolute{
+    position: absolute;
+}
+
+.full-page{
+    height: 100%;
+    width: 100%;
+}
+
+.z-index-1{
+    z-index: 1;
+}
+
+.large-icon{
+    font-size: $large-icon-size;
+}
+
+.color{
+    color: $icon-color;
+}
