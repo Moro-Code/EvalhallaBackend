@@ -3,7 +3,7 @@ title: Prerequisites
 permalink: /prerequisites/
 ---
 
-[Home](index.md) [Site-Map](documentation_index.md)
+[Home](../index.md) [Site-Map](documentation_index.md)
 
 # Prerequisites
 
