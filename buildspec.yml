@@ -18,6 +18,7 @@ phases:
       # name: version
     commands:
       - aws s3 cp s3://evalhalla-secrets-bucket/credentials.json app/configs/credentials/
+      - mv .ebextensions app/
       # - command
   #pre_build:
     #commands:
