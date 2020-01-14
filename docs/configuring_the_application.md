@@ -24,9 +24,14 @@ There are a couple of key differences between production mode and development mo
     <th>Development</th>
   </tr>
   <tr>
+    <td>Configuring the Application</td>
+    <td>Defaults are not provided for RabbitMQ and PostgreSQL credentials </td>
+    <td>Defaults are provided for RabbitMQ and PostgresSQL credentials </td>
+  </tr>
+  <tr>
     <td> Running the Application</td>
     <td> Run behind multiple gunicorn workers equivalent to the number of CPU cores detected on the system </td>
-    <td> ```flask run``` is used to start and run the application. This starts a built in WSGI server intended for development purposes only. 
+    <td> <code>flask run</code> is used to start and run the application. This starts a built in WSGI server intended for development purposes only. 
     </td>
   </tr>
   <tr>
@@ -40,6 +45,8 @@ There are a couple of key differences between production mode and development mo
     <td> Requests and emitted SQL to the PostgreSQL DB are logged to the command line </td>
   </tr>
 </table>
+
+
 
 
 
