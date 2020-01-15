@@ -3,4 +3,5 @@
 /venv/
 /postgres
 /.prod.env
+/.preprod.env
 _site/
