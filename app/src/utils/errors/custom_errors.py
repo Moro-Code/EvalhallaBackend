@@ -13,3 +13,11 @@ class InternalError(Exception):
 
 class DatabaseCommitFailed(InternalError):
     pass
+
+
+
+class ActionAlreadyExistsInStore(ValueError):
+    pass
+
+class HTTPMethodInvalid(ValueError):
+    pass
