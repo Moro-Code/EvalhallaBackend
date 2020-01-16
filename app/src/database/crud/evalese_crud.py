@@ -32,8 +32,12 @@ class EvaleseCRUD:
     def read_evalese(self, session, **kwargs):
         pageNumber = kwargs.pop("pageNumber", None) or 1
         numberOfItems = kwargs.pop("numberOfItems", None) or 20
+        all_evalese = kwargs.pop("all", False)
         
         survey = self.surveyCRUD.read_survey_by_surveyName(**kwargs)
+        
+        if all_evalese is True:
+            return survey.evalese.all()
         
         return survey.evalese.limit(numberOfItems).offset( (pageNumber - 1) * numberOfItems).all()
     

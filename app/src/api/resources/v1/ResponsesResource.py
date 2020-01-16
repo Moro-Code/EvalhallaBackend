@@ -64,7 +64,7 @@ class SurveyResponseResource(Resource):
         
         
         try:
-            responses = SurveyResponseCRUD().read_responses_for_most_recent_evalese( # pylint: disable=no-value-for-parameter
+            responses = SurveyResponseCRUD().read_all_responses( # pylint: disable=no-value-for-parameter
                 surveyName = surveyName,
                 all=get_arg_all
             )

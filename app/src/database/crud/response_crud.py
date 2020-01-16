@@ -44,6 +44,36 @@ class SurveyResponseCRUD:
                 )
             )
         return response
+    
+    @requires_params(READ, SurveyResponseModel.__tablename__)
+    def read_all_responses(self, session, **kwargs):
+
+        all_responses = kwargs.pop(
+            "all", False
+        )
+        surveyName = kwargs.pop(
+            "surveyName", None
+        )
+        responses = []
+
+        all_evalese = self.evaleseCRUD.read_evalese(
+            surveyName = surveyName, all = True
+        )
+
+        for evalese in all_evalese:
+            if all_responses is True:
+                responses.extend(
+                    evalese.responses.all()
+                )
+            else:
+                responses.extend(
+                    evalese.responses.filter_by(
+                        processed = True
+                    ).all()
+                )
+        
+        return responses
+
 
     @requires_params(CREATE, SurveyResponseModel.__tablename__, "response")
     def create_response_for_most_recent_evalese(self, session, **kwargs):
