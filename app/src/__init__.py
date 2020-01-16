@@ -18,17 +18,7 @@ def create_app(env="production") -> Flask:
     print(env)    
     app.config.from_mapping(load_application_variables(env))
     # depending on environment load the correct configuration
-    if env == "production":
-        # allow only certain origins or all
-        allowed_origins = app.config.get("ALLOWED_ORIGINS")
-        if allowed_origins is not None:
-            CORS(app, origins = allowed_origins)
-        else:
-            print(app.config)
-            CORS(app)
-        
-    else:
-        CORS(app)
+    CORS(app)
 
     app.config["DATABASE_URI"] = generate_database_uri(**app.config)
     app.config["BROKER_URI"] = generate_amqp_uri(**app.config)
